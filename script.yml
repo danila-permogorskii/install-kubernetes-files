@@ -1,0 +1,8 @@
+---
+- name: Start preparing_script.sh
+  hosts: srv 
+  become: yes
+
+  tasks:
+    - name: Execute preparing_script.sh
+      script: ~/inv/preparing_script.sh

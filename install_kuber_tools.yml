@@ -1,0 +1,47 @@
+---
+- name: Install Kubernetes Tools
+  hosts: kubnodes 
+  become: yes
+  tasks:
+    # - name: Update APT Cache
+    #   apt:
+    #     update_cache: yes
+
+    # - name: Install Required Packages
+    #   apt:
+    #     name:
+    #       - apt-transport-https
+    #       - ca-certificates
+    #       - curl
+    #       - gpg
+    #     state: present
+
+    # - name: Add Kubernetes GPG Key
+    #   shell: |
+    #     curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    #   args:
+    #     executable: /bin/bash
+
+    # - name: Add Kubernetes Repository
+    #   apt_repository:
+    #     repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /'
+    #     state: present
+
+    # - name: Update APT Cache Again
+    #   apt:
+    #     update_cache: yes
+
+    # - name: Install Kubernetes Packages
+    #   apt:
+    #     name:
+    #       - kubelet
+    #       - kubeadm
+    #       - kubectl
+    #     state: present
+
+    - name: Mark Kubernetes Packages as Held
+      command: apt-mark hold {{ item }}
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
